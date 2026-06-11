@@ -1,0 +1,51 @@
+def calcular_sustentabilidade():
+    print("=" * 60)
+    print("   SIMULADOR AGRINHO 2026: AGRO FORTE, FUTURO SUSTENTÁVEL   ")
+    print("=" * 60)
+    
+    try:
+        total_hectares = float(input("Digite a área total da propriedade (em hectares): "))
+        area_preservacao = float(input("Digite a área destinada à preservação/reserva legal (em hectares): "))
+        
+        if area_preservacao > total_hectares:
+            print("\n[Erro] A área de preservação não pode ser maior que a área total!")
+            return
+
+        # Cálculo do percentual de preservação
+        percentual_verde = (area_preservacao / total_hectares) * 100
+        
+        print("\n" + "-" * 40)
+        print("          RESULTADO DA ANÁLISE          ")
+        print("-" * 40)
+        print(f"Sua propriedade possui {percentual_verde:.1f}% de área protegida.")
+        
+        # Análise baseada no Código Florestal e boas práticas sustentáveis
+        if percentual_verde >= 20:
+            print("\n Parabéns! A propriedade atinge o equilíbrio ideal.")
+            print("Isso demonstra um Agro Forte que respeita o meio ambiente e garante o futuro.")
+        else:
+            print("\n Alerta: A área de preservação está abaixo dos 20% recomendados por lei para várias regiões.")
+            print("Dica do Agrinho: Considere o plantio de mata ciliar ou sistemas de integração (ILPF) para melhorar o índice!")
+            
+    except ValueError:
+        print("\n[Erro] Por favor, digite apenas números válidos.")
+
+if __name__ == "__main__":
+    calcular_sustentabilidade()
+    # Agrinho 2026 - Agro Forte, Futuro Sustentável 🌾🚀
+
+Este repositório foi desenvolvido para o **Concurso Agrinho 2026**, com o tema *"Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente"*. 
+
+O objetivo deste artefato tecnológico é demonstrar visual e interativamente como a inovação e o cuidado com a natureza andam de mãos dadas no agronegócio moderno.
+
+## 💡 Funcionalidades
+* Apresentação dos pilares do agro sustentável (tecnologia de precisão, práticas regenerativas e economia de água).
+* Interface limpa, responsiva e de fácil navegação (ou simulador interativo em terminal).
+
+## 🛠️ Tecnologias Utilizadas
+* HTML5
+* CSS3
+* JavaScript / Python
+
+## 🍃 Sobre o Tema
+O "Agro Forte" representa a eficiência de produzir alimentos com alta tecnologia. O "Futuro Sustentável" garante que as próximas gerações herdem solos ricos e águas limpas. O equilíbrio é a chave!

@@ -1,51 +1,140 @@
-def calcular_sustentabilidade():
-    print("=" * 60)
-    print("   SIMULADOR AGRINHO 2026: AGRO FORTE, FUTURO SUSTENTÁVEL   ")
-    print("=" * 60)
-    
-    try:
-        total_hectares = float(input("Digite a área total da propriedade (em hectares): "))
-        area_preservacao = float(input("Digite a área destinada à preservação/reserva legal (em hectares): "))
-        
-        if area_preservacao > total_hectares:
-            print("\n[Erro] A área de preservação não pode ser maior que a área total!")
-            return
-
-        # Cálculo do percentual de preservação
-        percentual_verde = (area_preservacao / total_hectares) * 100
-        
-        print("\n" + "-" * 40)
-        print("          RESULTADO DA ANÁLISE          ")
-        print("-" * 40)
-        print(f"Sua propriedade possui {percentual_verde:.1f}% de área protegida.")
-        
-        # Análise baseada no Código Florestal e boas práticas sustentáveis
-        if percentual_verde >= 20:
-            print("\n Parabéns! A propriedade atinge o equilíbrio ideal.")
-            print("Isso demonstra um Agro Forte que respeita o meio ambiente e garante o futuro.")
-        else:
-            print("\n Alerta: A área de preservação está abaixo dos 20% recomendados por lei para várias regiões.")
-            print("Dica do Agrinho: Considere o plantio de mata ciliar ou sistemas de integração (ILPF) para melhorar o índice!")
-            
-    except ValueError:
-        print("\n[Erro] Por favor, digite apenas números válidos.")
-
-if __name__ == "__main__":
-    calcular_sustentabilidade()
-    # Agrinho 2026 - Agro Forte, Futuro Sustentável 🌾🚀
-
-Este repositório foi desenvolvido para o **Concurso Agrinho 2026**, com o tema *"Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente"*. 
-
-O objetivo deste artefato tecnológico é demonstrar visual e interativamente como a inovação e o cuidado com a natureza andam de mãos dadas no agronegócio moderno.
-
-## 💡 Funcionalidades
-* Apresentação dos pilares do agro sustentável (tecnologia de precisão, práticas regenerativas e economia de água).
-* Interface limpa, responsiva e de fácil navegação (ou simulador interativo em terminal).
-
-## 🛠️ Tecnologias Utilizadas
-* HTML5
-* CSS3
-* JavaScript / Python
-
-## 🍃 Sobre o Tema
-O "Agro Forte" representa a eficiência de produzir alimentos com alta tecnologia. O "Futuro Sustentável" garante que as próximas gerações herdem solos ricos e águas limpas. O equilíbrio é a chave!
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoAgro - Monitor de Contaminação</title>
+    <style>
+        :root {
+            --bg-color: #0b131a;
+            --card-bg: #16222f;
+            --text-color: #e2e8f0;
+            --accent-green: #10b981;
+            --accent-blue: #06b6d4;
+            --alert-red: #ef4444;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--accent-green);
+            padding-bottom: 10px;
+        }
+        h1 { margin: 0; color: var(--accent-green); font-size: 2.5rem; text-transform: uppercase; }
+        p { margin: 5px 0; color: #94a3b8; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-top: 5px solid var(--accent-blue);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card.alert { border-top-color: var(--alert-red); }
+        h2 { margin-top: 0; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        .status-val { font-size: 2.2rem; font-weight: bold; margin: 15px 0; color: #fff; }
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+        .badge.danger {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--alert-red);
+        }
+        .btn-refresh {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(6, 182, 212, 0.4);
+        }
+        .btn-refresh:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Agro Forte & Sustentável</h1>
+        <p>Monitoramento em Tempo Real de Proteção do Solo e da Água</p>
+    </header>
+    <main class="grid">
+        <div class="card">
+            <h2>💧 Qualidade da Água</h2>
+            <p>Nível de Nitratos (Escoamento de Fertilizantes)</p>
+            <div class="status-val" id="water-val">4.2 mg/L</div>
+            <span class="badge" id="water-status">SEGURO</span>
+        </div>
+        <div class="card alert" id="soil-card">
+            <h2>🌱 Defensivos no Solo</h2>
+            <p>Índice de Lixiviação e Resíduos Químicos</p>
+            <div class="status-val" id="soil-val">0.024 ppm</div>
+            <span class="badge danger" id="soil-status">ALERTA CRÍTICO</span>
+        </div>
+        <div class="card">
+            <h2>🌦️ Risco de Chuva vs Soluto</h2>
+            <p>Probabilidade de contaminação do lençol freático</p>
+            <div class="status-val" id="risk-val">Baixo Risco</div>
+            <span class="badge" id="risk-status">MANEJO LIBERADO</span>
+        </div>
+    </main>
+    <button class="btn-refresh" onclick="simularSensores()">Simular Nova Leitura</button>
+    <script>
+        function simularSensores() {
+            const nitrato = (Math.random() * 15).toFixed(1);
+            const pesticida = (Math.random() * 0.05).toFixed(3);
+            document.getElementById('water-val').innerText = `${nitrato} mg/L`;
+            const wStatus = document.getElementById('water-status');
+            if(nitrato > 10) {
+                wStatus.innerText = "CONTAMINADO"; wStatus.className = "badge danger";
+            } else {
+                wStatus.innerText = "SEGURO"; wStatus.className = "badge";
+            }
+            document.getElementById('soil-val').innerText = `${pesticida} ppm`;
+            const sStatus = document.getElementById('soil-status');
+            const sCard = document.getElementById('soil-card');
+            if(pesticida > 0.01) {
+                sStatus.innerText = "ALERTA CRÍTICO"; sStatus.className = "badge danger";
+                sCard.className = "card alert";
+            } else {
+                sStatus.innerText = "ESTÁVEL"; sStatus.className = "badge";
+                sCard.className = "card";
+            }
+            const riscoVal = document.getElementById('risk-val');
+            const riscoStatus = document.getElementById('risk-status');
+            if(nitrato > 10 || pesticida > 0.01) {
+                riscoVal.innerText = "Alto Risco"; riscoStatus.innerText = "BLOQUEAR APLICAÇÃO";
+                riscoStatus.className = "badge danger";
+            } else {
+                riscoVal.innerText = "Risco Mínimo"; riscoStatus.innerText = "MANEJO LIBERADO";
+                riscoStatus.className = "badge";
+            }
+        }
+    </script>
+</body>
+</html>
